@@ -27,7 +27,7 @@ This code is tested on 64 bit Linux (Ubuntu 16.04 LTS) with the following Anacon
 ### Online Tracking
 
 **Pretrained Model**
- The off-the-shelf pretrained model in RT-MDNet is used for our testing: [RT-MDNet-ImageNet-pretrained](https://www.dropbox.com/s/lr8uft05zlo21an/rt-mdnet.pth?dl=0).
+>> * The off-the-shelf pretrained model in RT-MDNet is used for our testing: [RT-MDNet-ImageNet-pretrained](https://www.dropbox.com/s/lr8uft05zlo21an/rt-mdnet.pth?dl=0).
 
 **Demo**
 >> * 'Run.py' for OTB and UAV123

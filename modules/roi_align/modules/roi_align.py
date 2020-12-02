@@ -14,8 +14,8 @@ class RoIAlign(Module):
         self.spatial_scale = float(spatial_scale)
 
     def forward(self, features, rois):
-        return RoIAlignFunction(self.aligned_height, self.aligned_width,
-                                self.spatial_scale)(features, rois)
+        return RoIAlignFunction.apply(features, rois, self.aligned_height, self.aligned_width,
+                                self.spatial_scale)
 
 class RoIAlignAvg(Module):
     def __init__(self, aligned_height, aligned_width, spatial_scale):
@@ -26,8 +26,8 @@ class RoIAlignAvg(Module):
         self.spatial_scale = float(spatial_scale)
 
     def forward(self, features, rois):
-        x =  RoIAlignFunction(self.aligned_height+1, self.aligned_width+1,
-                                self.spatial_scale)(features, rois)
+        x =  RoIAlignFunction.apply(features, rois, self.aligned_height+1, self.aligned_width+1,
+                                self.spatial_scale)
         return avg_pool2d(x, kernel_size=2, stride=1)
 
 class RoIAlignMax(Module):
@@ -39,8 +39,8 @@ class RoIAlignMax(Module):
         self.spatial_scale = float(spatial_scale)
 
     def forward(self, features, rois):
-        x =  RoIAlignFunction(self.aligned_height+4, self.aligned_width+4,
-                                self.spatial_scale)(features, rois)
+        x =  RoIAlignFunction.apply(features, rois, self.aligned_height+4, self.aligned_width+4,
+                                self.spatial_scale)
         return max_pool2d(x, kernel_size=3, stride=2)
 
 
@@ -53,8 +53,8 @@ class RoIAlignAdaMax(Module):
         self.spatial_scale = float(spatial_scale)
 
     def forward(self, features, rois):
-        x =  RoIAlignAdaFunction(self.aligned_height+4, self.aligned_width+4,
-                                self.spatial_scale)(features, rois)
+        x =  RoIAlignAdaFunction.apply(features, rois, self.aligned_height+4, self.aligned_width+4,
+                                self.spatial_scale)
         return max_pool2d(x, kernel_size=3, stride=2)
 
 
@@ -67,7 +67,7 @@ class RoIAlignDenseAdaMax(Module):
         self.spatial_scale = float(spatial_scale)
 
     def forward(self, features, rois):
-        x =  RoIAlignDenseAdaFunction(self.aligned_height+4, self.aligned_width+4,
-                                self.spatial_scale)(features, rois)
+        x =  RoIAlignDenseAdaFunction.apply(features, rois, self.aligned_height+4, self.aligned_width+4,
+                                self.spatial_scale)
         # x_relu = torch.nn.ReLU()(x)
         return max_pool2d(x, kernel_size=3, stride=2)

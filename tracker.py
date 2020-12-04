@@ -17,7 +17,7 @@ from model import *
 from bbreg import *
 from options import *
 from img_cropper import *
-from roi_align.modules.roi_align import RoIAlignAvg,RoIAlignMax,RoIAlignAdaMax,RoIAlignDenseAdaMax
+from roi_align import RoIAlignAvg, RoIAlignMax, RoIAlignAdaMax
 dtype = torch.cuda.FloatTensor  # run on GPU
 #np.random.seed(123)
 #torch.manual_seed(456)
@@ -521,11 +521,11 @@ def run_mdnet(img_list, init_bbox, gt=None, seq='seq_name ex)Basketball', savefi
         cur_extra_cropped_image, _ = img_crop_model.crop_image(cur_image, np.reshape(extra_scene_box,(1,4)),extra_crop_img_size)
         cur_extra_cropped_image = cur_extra_cropped_image.detach()
 
-        cur_extra_pos_examples = gen_samples(SampleGenerator('gaussian', (ishape[1], ishape[0]), 0.1, 1.2),extra_target_bbox, opts['n_pos_init']/replicateNum, opts['overlap_pos_init'])
-        cur_extra_neg_examples = gen_samples(SampleGenerator('uniform', (ishape[1], ishape[0]), 0.3, 2, 1.1),extra_target_bbox, opts['n_neg_init']/replicateNum/4, opts['overlap_neg_init'])
+        cur_extra_pos_examples = gen_samples(SampleGenerator('gaussian', (ishape[1], ishape[0]), 0.1, 1.2),extra_target_bbox, opts['n_pos_init']//replicateNum, opts['overlap_pos_init'])
+        cur_extra_neg_examples = gen_samples(SampleGenerator('uniform', (ishape[1], ishape[0]), 0.3, 2, 1.1),extra_target_bbox, opts['n_neg_init']/replicateNum//4, opts['overlap_neg_init'])
 
         ##bbreg sample
-        cur_extra_bbreg_examples = gen_samples(SampleGenerator('uniform', (ishape[1], ishape[0]), 0.3, 1.5, 1.1),extra_target_bbox, opts['n_bbreg']/replicateNum/4, opts['overlap_bbreg'], opts['scale_bbreg'])
+        cur_extra_bbreg_examples = gen_samples(SampleGenerator('uniform', (ishape[1], ishape[0]), 0.3, 1.5, 1.1),extra_target_bbox, opts['n_bbreg']/replicateNum//4, opts['overlap_bbreg'], opts['scale_bbreg'])
 
         batch_num = iidx*np.ones((cur_extra_pos_examples.shape[0], 1))
         cur_extra_pos_rois = np.copy(cur_extra_pos_examples)

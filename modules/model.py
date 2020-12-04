@@ -12,7 +12,7 @@ import time
 
 import sys
 sys.path.insert(0,'./roi_align')
-from roi_align.modules.roi_align import RoIAlignAvg,RoIAlignMax
+from roi_align import RoIAlignAvg,RoIAlignMax
 
 def append_params(params, module, prefix):
     for child in module.children():

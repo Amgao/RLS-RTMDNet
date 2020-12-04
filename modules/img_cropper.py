@@ -1,6 +1,6 @@
 import sys
 sys.path.insert(0,'./modules')
-from roi_align.modules.roi_align import RoIAlign
+from roi_align import RoIAlign
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.autograd import Variable
